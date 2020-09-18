@@ -1,14 +1,12 @@
 <?php
 
-class jwt_helper extends CI_Controller
-{
+class jwt_helper extends CI_Controller {
     const CONSUMER_KEY = 'questionnaire';
     const CONSUMER_SECRET = 'questionnaire';
     const CONSUMER_TTL = 28800; // 4小时过期时间
 
     // 生成 token
-    public static function create($userid)
-    {
+    public static function create($userid) {
         $CI =& get_instance();
         $CI->load->library('JWT');
         $token = $CI->jwt->encode(array(
@@ -21,8 +19,7 @@ class jwt_helper extends CI_Controller
     }
 
     // 验证 token 有效性
-    public static function validate($token)
-    {
+    public static function validate($token) {
         $CI =& get_instance();
         $CI->load->library('JWT');
         try {
@@ -42,8 +39,7 @@ class jwt_helper extends CI_Controller
     }
 
     // 解码 token
-    public static function decode($token)
-    {
+    public static function decode($token) {
         $CI =& get_instance();
         $CI->load->library('JWT');
         try {

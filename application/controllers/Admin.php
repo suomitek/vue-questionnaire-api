@@ -1,9 +1,7 @@
 <?php
 
-class Admin extends CI_Controller
-{
-	public function login()
-	{
+class Admin extends CI_Controller {
+	public function login() {
 		$this->load->model('admin_model');
 		$userid = $this->admin_model->login();
 
@@ -17,8 +15,7 @@ class Admin extends CI_Controller
 		}
 	}
 
-	public function changepwd()
-	{
+	public function changepwd() {
 		$this->load->model('admin_model');
 		$header = $this->input->get_request_header('Authorization', TRUE);
 		list($token) = sscanf($header, 'token %s');
@@ -29,6 +26,5 @@ class Admin extends CI_Controller
 		} else {
 			show_error("Permission denied", 401, "Please check your token.");
 		}
-
 	}
 }
