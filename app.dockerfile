@@ -14,8 +14,10 @@ RUN apt-get install -qq git curl libmcrypt-dev libjpeg-dev libpng-dev libfreetyp
 # Install needed extensions
 # Here you can install any other extension that you need during the test and deployment process
 RUN php -i
-RUN docker-php-source extract
-RUN apt-get clean; docker-php-ext-install pdo pdo_mysql mysqli mcrypt zip gd pcntl opcache bcmath
+RUN docker-php-source extract /usr/src/
+RUN pecl install mcrypt
+RUN docker-php-ext-enable mcrypt
+RUN apt-get clean; docker-php-ext-install pdo pdo_mysql mysqli zip gd pcntl opcache bcmath
 
 
 # Installs Composer to easily manage your PHP dependencies.
