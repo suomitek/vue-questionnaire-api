@@ -1,11 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Naire extends CI_Controller
-{
+class Naire extends CI_Controller {
 
-    public function index()
-    {
+    public function index() {
         $this->load->model('naire_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -18,8 +16,7 @@ class Naire extends CI_Controller
     }
 
     // 获取指定问卷详情
-    public function detail()
-    {
+    public function detail() {
         // 获取参数 naire id
         $this->load->model('naire_model');
         $type = json_decode($this->input->raw_input_stream, true)['type']; // 类型为 vote / 或 不传
@@ -31,16 +28,14 @@ class Naire extends CI_Controller
         echo json_encode($result);
     }
 
-    public function getRank()
-    {
+    public function getRank() {
         // 获取参数 naire id
         $this->load->model('naire_model');
         $result = $this->naire_model->statis_naire();
         echo json_encode($result);
     }
 
-    public function setStyle()
-    {
+    public function setStyle() {
         $this->load->model('naire_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -73,8 +68,7 @@ class Naire extends CI_Controller
     }
 
     // 保存问卷
-    public function save()
-    {
+    public function save() {
         $this->load->model('naire_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -88,8 +82,7 @@ class Naire extends CI_Controller
     }
 
     // 提交问卷
-    public function submit()
-    {
+    public function submit() {
         $this->load->model('naire_model');
         $this->load->model('user_model');
         $post_data = json_decode($this->input->raw_input_stream, true)['result'];
@@ -111,8 +104,7 @@ class Naire extends CI_Controller
      * @param $user_id
      * @return mixed
      */
-    private function _sendMail($user_id)
-    {
+    private function _sendMail($user_id) {
         $this->load->library('email');
         $this->load->model('user_model');
         $this->config->load('settings', TRUE);
@@ -151,8 +143,7 @@ class Naire extends CI_Controller
     }
 
     // 删除问卷
-    public function del()
-    {
+    public function del() {
         $this->load->model('naire_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -165,8 +156,7 @@ class Naire extends CI_Controller
     }
 
     // 问卷统计
-    public function statis()
-    {
+    public function statis() {
         $this->load->model('naire_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -179,8 +169,7 @@ class Naire extends CI_Controller
     }
 
     // 交叉分析
-    public function crossanalysis()
-    {
+    public function crossanalysis() {
         $this->load->model('naire_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -193,8 +182,7 @@ class Naire extends CI_Controller
     }
 
     // 交叉分析题目选项
-    public function questions()
-    {
+    public function questions() {
         $this->load->model('naire_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -207,8 +195,7 @@ class Naire extends CI_Controller
     }
 
     // 样本数据
-    public function sourcedata()
-    {
+    public function sourcedata() {
         $this->load->model('naire_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -221,8 +208,7 @@ class Naire extends CI_Controller
     }
 
     // 用于导出 Excel 表
-    public function sourcedataExport()
-    {
+    public function sourcedataExport() {
         $this->load->model('naire_model');
         $token = $this->input->post_get('token'); // 这里的 token 通过 get 参数的方式获取
         $n_id = $this->input->post_get('n_id', TRUE);
@@ -302,8 +288,7 @@ class Naire extends CI_Controller
     }
 
     // 查看统计情况
-    public function submitStatis()
-    {
+    public function submitStatis() {
         $this->load->model('naire_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -316,8 +301,7 @@ class Naire extends CI_Controller
     }
 
     // 导出完成情况为 Excel
-    public function exportStatis()
-    {
+    public function exportStatis() {
         $this->load->model('naire_model');
         $token = $this->input->post_get('token'); // 这里的 token 通过 get 参数的方式获取
         $result = $this->naire_model->get_finish_statis($this->input->post_get('n_id')); // is_finished  已完成 1 未完成 0
@@ -391,8 +375,7 @@ class Naire extends CI_Controller
     }
 
     // 设置问卷状态
-    public function changeStatus()
-    {
+    public function changeStatus() {
         $this->load->model('naire_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -405,8 +388,7 @@ class Naire extends CI_Controller
     }
 
     // 设置问卷截止时间
-    public function changeTime()
-    {
+    public function changeTime() {
         $this->load->model('naire_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
