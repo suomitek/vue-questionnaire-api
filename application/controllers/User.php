@@ -1,12 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User extends CI_Controller
-{
+class User extends CI_Controller {
 
     // 获取所有用户
-    public function index()
-    {
+    public function index() {
         $this->load->model('user_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -19,8 +17,7 @@ class User extends CI_Controller
     }
 
     // 批量上传用户
-    public function upload()
-    {
+    public function upload() {
         // 判断文件夹是否存在，不存在则创建目录
         self::_newFolder('./uploads/');
         $this->load->model('user_model');
@@ -97,8 +94,7 @@ class User extends CI_Controller
     }
 
     // 删除用户
-    public function del()
-    {
+    public function del() {
         $this->load->model('user_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -111,8 +107,7 @@ class User extends CI_Controller
 
     }
 
-    public function clear()
-    {
+    public function clear() {
         $this->load->model('user_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -128,16 +123,14 @@ class User extends CI_Controller
 
 
     // 获取用户id
-    public function getId()
-    {
+    public function getId() {
         $this->load->model('user_model');
         $result = $this->user_model->get_user_id();
         echo json_encode($result);
     }
 
     // 获取班级列表
-    public function getClass()
-    {
+    public function getClass() {
         $this->load->model('user_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -150,8 +143,7 @@ class User extends CI_Controller
     }
 
     // 新增用户
-    public function addUser()
-    {
+    public function addUser() {
         $this->load->model('user_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -181,8 +173,7 @@ class User extends CI_Controller
     }
 
     // 更新用户
-    public function updateUser()
-    {
+    public function updateUser() {
         $this->load->model('user_model');
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -199,7 +190,7 @@ class User extends CI_Controller
     }
 
     // 变更用户冻结状态
-    public function changeStatus(){
+    public function changeStatus() {
         $this->load->model("user_model");
         $header = $this->input->get_request_header('Authorization', TRUE);
         list($token) = sscanf($header, 'token %s');
@@ -222,8 +213,7 @@ class User extends CI_Controller
      * 创建文件夹
      * @param $path 文件路径
      */
-    private function _newFolder($path)
-    {
+    private function _newFolder($path) {
         if (!is_readable($path)) {
             is_file($path) or mkdir($path, 0700);
         }
