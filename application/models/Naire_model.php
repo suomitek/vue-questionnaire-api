@@ -1,18 +1,15 @@
 <?php
 
-class Naire_model extends CI_Model
-{
+class Naire_model extends CI_Model {
 
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct();
 		// Your own constructor code
 		$this->load->database();
 	}
 
 	// 获取问卷详细信息
-	public function get_naires()
-	{
+	public function get_naires() {
 		// 获取参数 naire id
 		// JSON 反序列化
 		$n_id = json_decode($this->input->raw_input_stream, true)['n_id'];
@@ -96,8 +93,7 @@ class Naire_model extends CI_Model
 	}
 
 	// 获取问卷列表
-	public function get_naire_list()
-	{
+	public function get_naire_list() {
 		$query = $this->db->order_by("n_deadline", "desc")->get('naire');
 		if (!$query) {
 			$err = 1;
@@ -108,8 +104,7 @@ class Naire_model extends CI_Model
 	}
 
 	// 保存问卷
-	public function save_naire()
-	{
+	public function save_naire() {
 		// JSON 反序列化
 		$naire = json_decode($this->input->raw_input_stream, true)['naire'];
 		$status = json_decode($this->input->raw_input_stream, true)['status'];
@@ -251,8 +246,7 @@ class Naire_model extends CI_Model
 	}
 
 	// 提交问卷
-	public function submit_naire($result, $n_id, $user_id)
-	{
+	public function submit_naire($result, $n_id, $user_id) {
 		// 对问卷可提交时间做判断，以服务器的时间为准
 		$this->db->trans_start();
 
@@ -309,8 +303,7 @@ class Naire_model extends CI_Model
 	}
 
 	// 删除问卷
-	public function del_naire()
-	{
+	public function del_naire() {
 		$n_id = $this->input->post_get('n_id', TRUE);
 		// 删除多表中的数据
 		$del_tables = array('naire', 'question', 'options', 'result', 'submit_log');
@@ -330,8 +323,7 @@ class Naire_model extends CI_Model
 	}
 
 	// 问卷统计
-	public function statis_naire()
-	{
+	public function statis_naire() {
 		// 获取参数 naire id
 		// JSON 反序列化
 		$n_id = json_decode($this->input->raw_input_stream, true)['n_id'];
@@ -472,8 +464,7 @@ class Naire_model extends CI_Model
 	}
 
 	// 交叉分析获取题目
-	public function get_questions()
-	{
+	public function get_questions() {
 		// 获取参数 naire id
 		// JSON 反序列化
 		$n_id = json_decode($this->input->raw_input_stream, true)['n_id'];
@@ -509,8 +500,7 @@ class Naire_model extends CI_Model
 	}
 
 	// 交叉分析
-	public function cross_analysis()
-	{
+	public function cross_analysis() {
 		// todo
 		// 需要接收两个参数，一个题目的id，一个是题目的id
 		// 交叉分析
@@ -557,8 +547,7 @@ class Naire_model extends CI_Model
 	}
 
 	// 样本数据
-	public function source_data()
-	{
+	public function source_data() {
 		ini_set('memory_limit', '-1');
 		ini_set('max_execution_time', '1000');
 		// 获取参数 naire id
@@ -626,7 +615,6 @@ class Naire_model extends CI_Model
 		// 题目信息，作为表头
 		$result["question"] = $questions;
 		// todo 依照 result 表中的用户进行遍历，以用户为一个单位
-
 		$result["user_result"] = [];
 
 		foreach ($users as $users_key => $users_val) {
@@ -661,8 +649,6 @@ class Naire_model extends CI_Model
 					$result_temp["q_" . $user_result_val["q_id"]] = $curAnswer;
 
 					$q_id = $user_result_val["q_id"];
-
-
 				}
 			}
 
@@ -679,8 +665,7 @@ class Naire_model extends CI_Model
 	}
 
 	// 全部样本数据，用于Excel 导出
-	public function all_source_data($n_id, $current = 1, $page_size = 500)
-	{
+	public function all_source_data($n_id, $current = 1, $page_size = 500) {
 		ini_set('memory_limit', '-1');
 		ini_set('max_execution_time', '1000');
 		// 获取参数 分页
@@ -782,16 +767,12 @@ class Naire_model extends CI_Model
 					$result_temp["q_" . $user_result_val["q_id"]] = $curAnswer;
 
 					$q_id = $user_result_val["q_id"];
-
-
 				}
 			}
 
 			// 合并两个数组
 			$result["user_result"][] = $result_temp;
-
 		}
-
 
 		return $result;
 	}
@@ -802,8 +783,7 @@ class Naire_model extends CI_Model
 	 * @param bool $only_not_finish 是否只获取未完成的用户
 	 * @return array
 	 */
-	public function get_finish_statis($currentNaire, $only_not_finish = false)
-	{
+	public function get_finish_statis($currentNaire, $only_not_finish = false) {
 		$this->config->load('settings', TRUE);
 		$not_active_days = $this->config->item('not_active_time', 'settings'); // 未活跃时间
 		// 如果传入用户ID,返回当前用户的信息
@@ -838,8 +818,7 @@ class Naire_model extends CI_Model
 	}
 
 	// 查看回收情况
-	public function submit_statis()
-	{
+	public function submit_statis() {
 		$this->config->load('settings', TRUE);
 		$not_active_days = $this->config->item('not_active_time', 'settings'); // 未活跃时间
 		// 如果传入用户ID,返回当前用户的信息
@@ -900,8 +879,7 @@ class Naire_model extends CI_Model
 	}
 
 	// 修改状态
-	public function change_status()
-	{
+	public function change_status() {
 		$n_id = $this->input->post_get('n_id', TRUE);
 		// 修改发布状态
 		$this->db->query("UPDATE naire SET n_status = (1-n_status) WHERE n_id='{$n_id}'");
@@ -910,8 +888,7 @@ class Naire_model extends CI_Model
 	}
 
 	// 修改问卷时间
-	public function change_time()
-	{
+	public function change_time() {
 		$n_id = json_decode($this->input->raw_input_stream, true)['n_id'];
 		$n_deadline = json_decode($this->input->raw_input_stream, true)['n_deadline'];
 		// 修改发布状态

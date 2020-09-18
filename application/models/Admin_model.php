@@ -1,18 +1,15 @@
 <?php
 
-class Admin_model extends CI_Model
-{
+class Admin_model extends CI_Model {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         // Your own constructor code
         $this->load->database();
     }
 
     // 登录
-    public function login()
-    {
+    public function login() {
 //        $data = json_decode($this->input->raw_input_stream);
         $username = $this->input->post_get('username', TRUE);
 //        $username = $data->username;
@@ -29,8 +26,7 @@ class Admin_model extends CI_Model
     }
 
     // 修改管理员密码
-    public function changePwd($userid)
-    {
+    public function changePwd($userid) {
         $oldpwd = json_decode($this->input->raw_input_stream, true)['oldpwd'];
         $newpwd = json_decode($this->input->raw_input_stream, true)['newpwd'];
         $where_array = array('a_id' => $userid, 'a_password' => sha1($oldpwd));
@@ -53,5 +49,4 @@ class Admin_model extends CI_Model
         $result = $this->db->affected_rows();
         return array('err' => $error, "data" => $result);
     }
-
 }
