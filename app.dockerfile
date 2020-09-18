@@ -1,4 +1,4 @@
-FROM php:7.1.22-fpm
+FROM php:7.4.10-fpm
 
 RUN sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list && rm -Rf /var/lib/apt/lists/* &&  cat /etc/apt/sources.list
 
